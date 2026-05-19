@@ -5,17 +5,17 @@ export default function HeroContent() {
     <div className="flex flex-col items-center gap-8 text-center">
       {/* Main headline */}
       <h1 className="max-w-3xl text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
-        Discover the career you&apos;re{" "}
+        AI Career {" "}
         <span className="bg-gradient-to-r from-primary to-primary-deep bg-clip-text text-transparent">
-          naturally built
+          Prediction
         </span>{" "}
-        for
+         & Guidance
       </h1>
 
       {/* Subheadline */}
-      <p className="max-w-xl text-base font-light leading-relaxed text-muted sm:text-lg md:text-xl">
-        Your birth patterns, personality, and hidden drives — decoded through
-        astrology, numerology, and AI.
+      <p className="max-w-2xl text-base font-light leading-relaxed text-muted sm:text-lg md:text-xl">
+        Unlock personalized career insights using birth-based analysis and AI intelligence to 
+discover professions aligned with your natural strengths and future potential.
       </p>
 
       {/* CTA button */}

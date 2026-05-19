@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -10,9 +12,9 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "CareerDNA — Discover the Career You're Naturally Built For",
+  title: "CareerDNA — AI Career Prediction & Guidance",
   description:
-    "Your birth patterns, personality, and hidden drives — decoded through astrology, numerology, and AI. Begin your personalized career reading today.",
+    "Unlock personalized career insights using birth-based analysis and AI intelligence to discover professions aligned with your natural strengths and future potential.",
 };
 
 export default function RootLayout({
@@ -22,7 +24,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${poppins.variable} antialiased`}>
-      <body className="min-h-dvh font-sans">{children}</body>
+      <body className="flex min-h-dvh flex-col font-sans">
+        <Navbar />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }

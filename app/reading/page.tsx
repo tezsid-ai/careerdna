@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import HeroBackground from "@/components/HeroBackground";
 import WelcomeStep from "@/components/reading/WelcomeStep";
 import BirthDataStep from "@/components/reading/BirthDataStep";
@@ -30,6 +30,7 @@ export default function ReadingPage() {
   const [report, setReport] = useState<CareerReport | null>(null);
 
   const next = () => setStep((s) => s + 1);
+  const goToStep = useCallback((s: number) => setStep(s), []);
 
   const onQuestionsComplete = (a: Answers, t: TraitScores, c: string[]) => {
     setData((p) => ({ ...p, answers: a, traitScores: t, contradictions: c }));
@@ -51,9 +52,15 @@ export default function ReadingPage() {
             data={data}
             setData={(d) => setData((p) => ({ ...p, ...d }))}
             onNext={next}
+            onBack={() => goToStep(1)}
           />
         )}
-        {step === 3 && <QuestionStep onComplete={onQuestionsComplete} />}
+        {step === 3 && (
+          <QuestionStep
+            onComplete={onQuestionsComplete}
+            onBack={() => goToStep(2)}
+          />
+        )}
         {step === 4 && (
           <GenerationStep readingData={data} onComplete={onReportReady} />
         )}

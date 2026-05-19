@@ -1,9 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { calculateLifePath, getLifePathInsight } from "./LifePathCalculator";
 import FormField from "./FormField";
-import MicroInsight from "./MicroInsight";
 import ContinueButton from "./ContinueButton";
 
 export interface ReadingData {
@@ -22,7 +20,6 @@ interface BirthDataFormProps {
 export default function BirthDataForm({ data, setData, onNext }: BirthDataFormProps) {
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [errors, setErrors] = useState<Record<string, string | undefined>>({});
-  const [insight, setInsight] = useState<{ number: number; text: string } | null>(null);
 
   const validate = useCallback(
     (field: string, value: string): string | undefined => {
@@ -56,10 +53,6 @@ export default function BirthDataForm({ data, setData, onNext }: BirthDataFormPr
       ...prev,
       [field]: validate(field, data[field]),
     }));
-    if (field === "dob" && data.dob && !validate("dob", data.dob)) {
-      const lp = calculateLifePath(data.dob);
-      setInsight({ number: lp, text: getLifePathInsight(lp) });
-    }
   };
 
   const isValid =
@@ -105,9 +98,7 @@ export default function BirthDataForm({ data, setData, onNext }: BirthDataFormPr
         />
       </FormField>
 
-      {insight && (
-        <MicroInsight insight={insight.text} lifePathNumber={insight.number} />
-      )}
+
 
       <FormField
         label="City where you were born"
@@ -117,7 +108,7 @@ export default function BirthDataForm({ data, setData, onNext }: BirthDataFormPr
         <input
           type="text"
           className={INPUT_CLS}
-          placeholder="e.g. Mumbai, London, New York"
+          placeholder="e.g. Pune"
           value={data.birthCity}
           onChange={(e) => handleChange("birthCity", e.target.value)}
           onBlur={() => handleBlur("birthCity")}

@@ -7,26 +7,33 @@ import { calculateTraitScores, detectContradictions } from "@/utils/traitScoring
 import type { Answers } from "@/utils/traitScoring";
 import StepProgressBar from "./StepProgressBar";
 import QuestionCard from "./QuestionCard";
-import MicroInsightCard from "./MicroInsightCard";
+import InsightToast from "./InsightToast";
+import BackButton from "./BackButton";
 
 interface QuestionStepProps {
   onComplete: (answers: Answers, traits: ReturnType<typeof calculateTraitScores>, contradictions: string[]) => void;
+  onBack?: () => void;
 }
 
-type Phase = "question" | "insight";
 type Anim = "anim-enter" | "anim-exit" | "anim-hidden";
 
-export default function QuestionStep({ onComplete }: QuestionStepProps) {
+export default function QuestionStep({ onComplete, onBack }: QuestionStepProps) {
   const [qIndex, setQIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [selected, setSelected] = useState<string | null>(null);
-  const [phase, setPhase] = useState<Phase>("question");
   const [anim, setAnim] = useState<Anim>("anim-enter");
-  const [insightText, setInsightText] = useState("");
   const transitioning = useRef(false);
 
+  // Toast insight state
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const toastQueueRef = useRef<string | null>(null);
+
   const totalQ = QUESTIONS.length;
-  const progressStep = Math.round(((qIndex + 1) / totalQ) * 2) + 2; // steps 3-4 range mapped
+
+  // Overall flow: BirthData = step 1, Questions = steps 2..(totalQ+1)
+  // Progress bar shows question progress: current question out of total questions
+  const progressCurrent = qIndex + 1;
+  const progressTotal = totalQ;
 
   const exitThenRun = useCallback((fn: () => void) => {
     if (transitioning.current) return;
@@ -39,37 +46,48 @@ export default function QuestionStep({ onComplete }: QuestionStepProps) {
     }, 320);
   }, []);
 
+  const triggerToast = useCallback((text: string) => {
+    // Only one toast at a time — if one is visible, skip
+    if (toastMessage) {
+      toastQueueRef.current = text;
+      return;
+    }
+    setToastMessage(text);
+  }, [toastMessage]);
+
+  const handleToastDismiss = useCallback(() => {
+    setToastMessage(null);
+    // Process queued toast if any
+    if (toastQueueRef.current) {
+      const queued = toastQueueRef.current;
+      toastQueueRef.current = null;
+      setTimeout(() => setToastMessage(queued), 200);
+    }
+  }, []);
+
   const advanceToNext = useCallback(
     (updatedAnswers: Answers, currentIdx: number) => {
+      // Check for toast insight after this question
       if (shouldShowInsight(currentIdx)) {
         const key = `q${currentIdx}`;
         const text = getMicroInsight(currentIdx, updatedAnswers[key]);
         if (text) {
-          setInsightText(text);
-          setPhase("insight");
-          setAnim("anim-enter");
-          return;
+          triggerToast(text);
         }
       }
-      goToNextQuestion(updatedAnswers, currentIdx);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  );
 
-  const goToNextQuestion = (updatedAnswers: Answers, currentIdx: number) => {
-    const next = currentIdx + 1;
-    if (next >= totalQ) {
-      const traits = calculateTraitScores(updatedAnswers);
-      const contradictions = detectContradictions(traits);
-      onComplete(updatedAnswers, traits, contradictions);
-      return;
-    }
-    setQIndex(next);
-    setSelected(null);
-    setPhase("question");
-    setAnim("anim-enter");
-  };
+      const next = currentIdx + 1;
+      if (next >= totalQ) {
+        const traits = calculateTraitScores(updatedAnswers);
+        const contradictions = detectContradictions(traits);
+        onComplete(updatedAnswers, traits, contradictions);
+        return;
+      }
+      setQIndex(next);
+      setSelected(null);
+    },
+    [totalQ, onComplete, triggerToast],
+  );
 
   const handleSelect = (key: string) => {
     if (transitioning.current) return;
@@ -82,34 +100,61 @@ export default function QuestionStep({ onComplete }: QuestionStepProps) {
     }, 400);
   };
 
-  const handleInsightContinue = () => {
-    exitThenRun(() => goToNextQuestion(answers, qIndex));
+  const handleBack = () => {
+    if (transitioning.current) return;
+
+    if (qIndex > 0) {
+      // Go to previous question, restoring previous answer
+      exitThenRun(() => {
+        const prevIndex = qIndex - 1;
+        setQIndex(prevIndex);
+        setSelected(answers[`q${prevIndex}`] ?? null);
+      });
+    } else if (onBack) {
+      // Go back to the birth data step
+      onBack();
+    }
   };
 
+  const canGoBack = qIndex > 0 || !!onBack;
+
   return (
-    <section className="flex min-h-dvh flex-col items-center justify-center px-4 py-12">
+    <section className="flex min-h-dvh flex-col items-center px-4 py-6 sm:py-12">
       <div className="w-full max-w-2xl">
-        <StepProgressBar currentStep={progressStep} totalSteps={4} />
+        <StepProgressBar
+          currentStep={progressCurrent}
+          totalSteps={progressTotal}
+          label={`Question ${progressCurrent} of ${progressTotal}`}
+        />
       </div>
+
+      {/* Back button */}
+      {canGoBack && (
+        <div className="w-full max-w-2xl mt-2 mb-4 px-2">
+          <BackButton
+            onClick={handleBack}
+            label={qIndex === 0 ? "Back" : "Previous"}
+          />
+        </div>
+      )}
 
       <div className="flex flex-1 w-full items-center justify-center">
-        {phase === "question" && (
-          <QuestionCard
-            question={QUESTIONS[qIndex]}
-            selected={selected}
-            onSelect={handleSelect}
-            animClass={anim}
-          />
-        )}
-
-        {phase === "insight" && (
-          <MicroInsightCard
-            insight={insightText}
-            onContinue={handleInsightContinue}
-            animClass={anim}
-          />
-        )}
+        <QuestionCard
+          question={QUESTIONS[qIndex]}
+          selected={selected}
+          onSelect={handleSelect}
+          animClass={anim}
+        />
       </div>
+
+      {/* Toast insight */}
+      {toastMessage && (
+        <InsightToast
+          message={toastMessage}
+          onDismiss={handleToastDismiss}
+          duration={9000}
+        />
+      )}
     </section>
   );
 }
