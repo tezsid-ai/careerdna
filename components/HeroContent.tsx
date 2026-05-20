@@ -9,7 +9,7 @@ export default function HeroContent() {
         <span className="bg-gradient-to-r from-primary to-primary-deep bg-clip-text text-transparent">
           Prediction
         </span>{" "}
-        & Guidance
+        & Guidance Based On Your Birth Details
       </h1>
 
       {/* Subheadline */}
