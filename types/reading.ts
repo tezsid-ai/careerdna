@@ -18,59 +18,35 @@ export interface ReadingPayload {
 export interface Archetype {
   name: string;
   tagline: string;
-  description: string;
-}
-
-export interface Strength {
-  title: string;
-  description: string;
 }
 
 export interface WorkEnvironment {
   thrives: string[];
   drains: string[];
-  idealStructure: string;
 }
 
 export interface CareerCluster {
   name: string;
-  description: string;
+  matchPercent: number;
+  reason: string;
   exampleRoles: string[];
 }
 
-export interface Warning {
+export interface TopCareerMatch {
   title: string;
-  description: string;
+  matchPercent: number;
+  reason: string;
+  supportingSignal: string;
 }
 
-export interface GrowthPath {
-  emotionalBlocker: string;
-  hiddenStrength: string;
-  evolutionDirection: string;
-}
-
-export interface NumerologyInsight {
-  lifePathNumber: number;
-  lifePathMeaning: string;
-  soulUrgeInsight: string;
-}
-
-export interface AstrologyInsight {
-  sunSign: string;
-  sunSignCareerMeaning: string;
-  dominantElement: string;
-  elementCareerInfluence: string;
+export interface ActionPlan {
+  steps: [string, string, string];
 }
 
 export interface CareerReport {
   archetype: Archetype;
-  strengths: Strength[];
-  workEnvironment: WorkEnvironment;
+  topCareerMatch: TopCareerMatch;
   careerClusters: CareerCluster[];
-  warnings: Warning[];
-  growthPath: GrowthPath;
-  numerologyInsight: NumerologyInsight;
-  astrologyInsight: AstrologyInsight;
-  contradictionInsight: string | null;
-  closingMessage: string;
+  workEnvironment: WorkEnvironment;
+  actionPlan: ActionPlan;
 }

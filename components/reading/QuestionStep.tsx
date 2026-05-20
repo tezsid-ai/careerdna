@@ -130,7 +130,7 @@ export default function QuestionStep({ onComplete, onBack }: QuestionStepProps) 
 
       {/* Back button */}
       {canGoBack && (
-        <div className="w-full max-w-2xl mt-2 mb-4 px-2">
+        <div className="w-full max-w-2xl mt-2 px-2">
           <BackButton
             onClick={handleBack}
             label={qIndex === 0 ? "Back" : "Previous"}

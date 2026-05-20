@@ -10,6 +10,27 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <main className="relative z-10 mx-auto min-h-[calc(100dvh-8rem)] max-w-3xl px-6 pt-28 pb-16 sm:pt-32">
+      {/* Back link */}
+      <div className="mt-1 relative -left-2 -top-4">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 border px-3 py-2 rounded-full text-sm font-medium text-primary transition-colors hover:text-primary-deep"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          Back to Home
+        </Link>
+      </div>
       {/* Heading */}
       <h1 className="text-2xl font-bold text-foreground sm:text-3xl">
         Privacy Policy
@@ -87,27 +108,7 @@ export default function PrivacyPage() {
         </section>
       </div>
 
-      {/* Back link */}
-      <div className="mt-10">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-primary-deep"
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M19 12H5M12 19l-7-7 7-7" />
-          </svg>
-          Back to Home
-        </Link>
-      </div>
+      
     </main>
   );
 }

@@ -19,7 +19,7 @@ export default function StepProgressBar({
 
   return (
     <div
-      className="sticky top-0 z-40 w-full bg-background/80 backdrop-blur-md pb-4 pt-4 px-4 sm:px-0"
+      className="sticky top-0 z-40 w-full bg-background/10 pb-4 pt-24 px-4 sm:px-0"
       role="progressbar"
       aria-valuenow={Math.round(progress)}
       aria-valuemin={0}

@@ -64,7 +64,9 @@ export default function ReadingPage() {
         {step === 4 && (
           <GenerationStep readingData={data} onComplete={onReportReady} />
         )}
-        {step === 5 && report && <ResultsStep report={report} />}
+        {step === 5 && report && (
+          <ResultsStep report={report} onBack={() => goToStep(3)} />
+        )}
       </div>
     </div>
   );

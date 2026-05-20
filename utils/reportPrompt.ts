@@ -1,8 +1,13 @@
 import type { ReadingPayload } from "@/types/reading";
 
 const LABELS = [
-  "Social Energy", "Content Interest", "Success Definition",
-  "Energy Drain", "Natural Role", "Unconstrained Desire", "Risk Orientation",
+  "Social Energy",
+  "Content Interest",
+  "Success Definition",
+  "Energy Drain",
+  "Natural Role",
+  "Unconstrained Desire",
+  "Risk Orientation",
 ];
 
 export function buildPrompt(p: ReadingPayload): string {
@@ -17,7 +22,7 @@ export function buildPrompt(p: ReadingPayload): string {
   const contradictionBlock =
     p.contradictions.length > 0 ? p.contradictions.join(", ") : "None detected";
 
-  return `You are CareerDNA — an AI system that combines astrology, numerology, and behavioral psychology to generate deeply personal career readings. You write like a wise, warm, insightful guide — never like a corporate assessment tool or generic horoscope. Every insight must feel specific to this person, not generic.
+  return `You are CareerDNA — an AI career prediction and guidance system. You combine behavioral signals with subtle astrology and numerology to personalize insights, but career guidance is the main focus. Write in simple, clean, modern Indian-English. Avoid mystical, poetic, or overly intellectual language. Keep sentences short and easy to scan.
 
 Based on the following person's complete profile, generate their career reading as a JSON object matching the exact structure specified below.
 
@@ -45,17 +50,37 @@ Soul Urge: ${p.soulUrge}
 
 REQUIRED JSON OUTPUT — return ONLY this JSON object, no markdown, no explanation:
 {
-  "archetype": { "name": "string 2-4 words", "tagline": "string max 12 words", "description": "string 3-4 sentences personal" },
-  "strengths": [{ "title": "string 2-4 words", "description": "string 2 sentences specific" }],
-  "workEnvironment": { "thrives": ["string","string","string"], "drains": ["string","string","string"], "idealStructure": "string 2-3 sentences" },
-  "careerClusters": [{ "name": "string", "description": "string 2 sentences", "exampleRoles": ["string","string","string"] }],
-  "warnings": [{ "title": "string", "description": "string 2 sentences honest" }],
-  "growthPath": { "emotionalBlocker": "string 2-3 sentences", "hiddenStrength": "string 2-3 sentences", "evolutionDirection": "string 2-3 sentences" },
-  "numerologyInsight": { "lifePathNumber": ${p.lifePathNumber}, "lifePathMeaning": "string 3 sentences", "soulUrgeInsight": "string 2 sentences" },
-  "astrologyInsight": { "sunSign": "${p.sunSign}", "sunSignCareerMeaning": "string 3 sentences", "dominantElement": "${p.dominantElement}", "elementCareerInfluence": "string 2 sentences" },
-  "contradictionInsight": ${p.contradictions.length > 0 ? '"string 3-4 sentences addressing tension"' : "null"},
-  "closingMessage": "string 3-4 sentences warm personal uses first name ${p.name.split(" ")[0]}"
+  "archetype": {
+    "name": "string 2-4 words, a career personality name",
+    "tagline": "string 1 short sentence, simple and career-focused"
+  },
+  "topCareerMatch": {
+    "title": "string 2-5 words",
+    "matchPercent": 92,
+    "reason": "string 1-2 sentences, simple and career-focused",
+    "supportingSignal": "string 1 short line that subtly references life path or sun sign/element"
+  },
+  "careerClusters": [
+    {
+      "name": "string",
+      "matchPercent": 88,
+      "reason": "string 1-2 sentences, simple and practical",
+      "exampleRoles": ["string","string","string"]
+    }
+  ],
+  "workEnvironment": {
+    "thrives": ["string","string","string","string"],
+    "drains": ["string","string","string","string"]
+  },
+  "actionPlan": { "steps": ["string","string","string"] }
 }
 
-TONE: Write like a wise astrologer with psychology depth. No corporate language. Be specific — reference their answers. Return ONLY the JSON.`;
+TONE RULES:
+- Simple, clean, and emotionally relatable for Indian users.
+- Avoid corporate psychology jargon, Western personality terms, and poetic language.
+- Keep it practical, believable, and career-focused.
+- Prefer India-relevant, modern roles and environments.
+- Subtly integrate astrology/numerology as a supporting signal only.
+- Reference their answers so it feels personal.
+- Return ONLY the JSON.`;
 }
