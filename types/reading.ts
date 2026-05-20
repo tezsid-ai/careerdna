@@ -1,18 +1,23 @@
-import type { TraitScores } from "@/utils/traitScoring";
+import type { CareerMapping } from "@/utils/careerMapping";
+import type { StructuredProfile } from "@/utils/profileEngine";
 
 export interface ReadingPayload {
   name: string;
   dob: string;
   birthCity: string;
   birthTime: string;
-  lifePathNumber: number;
   sunSign: string;
+  moonSign: string;
+  ascendant: string;
   dominantElement: string;
-  soulUrge: number;
-  answers: Record<string, string>;
-  answerTexts: Record<string, string>;
-  traitScores: TraitScores;
-  contradictions: string[];
+  careerIndicator: string;
+  lifePathNumber: number;
+  destinyNumber: number;
+  soulUrgeNumber: number;
+  numerologySignals: string[];
+  astrologySignals: string[];
+  profile: StructuredProfile;
+  careerMapping: CareerMapping;
 }
 
 export interface Archetype {

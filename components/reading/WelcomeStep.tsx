@@ -5,10 +5,10 @@ interface WelcomeStepProps {
 }
 
 const STATEMENTS = [
-  "✦ Some are natural builders — they see problems and create solutions.",
-  "✦ Some are creators — they think in concepts, images, and expression.",
-  "✦ Some are strategists — they read patterns others miss entirely.",
-  "✦ Some are guides — they understand people at a depth most cannot articulate.",
+  "✦ Some are natural builders",
+  "✦ Some are creators",
+  "✦ Some are strategists",
+  "✦ Some are guides",
 ];
 
 export default function WelcomeStep({ onNext }: WelcomeStepProps) {

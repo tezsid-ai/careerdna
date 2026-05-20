@@ -5,6 +5,7 @@ import type { FullReadingData } from "@/app/reading/page";
 import type { CareerReport } from "@/types/reading";
 import { buildReadingPayload } from "@/utils/payloadBuilder";
 import { generateCareerReading } from "@/utils/geminiClient";
+import { createEmptyTraitScores } from "@/utils/traitScoring";
 // import GenerationAnimation from "./GenerationAnimation";
 import GenerationTextSequence from "./GenerationTextSequence";
 
@@ -33,8 +34,7 @@ export default function GenerationStep({ readingData, onComplete }: Props) {
       setError(null);
       const payload = buildReadingPayload(
         readingData,
-        readingData.answers ?? {},
-        readingData.traitScores ?? ({} as never),
+        readingData.traitScores ?? createEmptyTraitScores(),
         readingData.contradictions ?? [],
       );
       const report = await generateCareerReading(payload);
@@ -42,7 +42,11 @@ export default function GenerationStep({ readingData, onComplete }: Props) {
       apiDone.current = true;
       tryAdvance();
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Something went wrong. Please try again.");
+      setError(
+        e instanceof Error
+          ? e.message
+          : "Something went wrong. Please try again.",
+      );
     }
   };
 
@@ -75,7 +79,11 @@ export default function GenerationStep({ readingData, onComplete }: Props) {
         <div className="flex flex-col items-center gap-4 text-center">
           <p className="text-sm text-red-400">{error}</p>
           <button
-            onClick={() => { setError(null); apiDone.current = false; callApi(); }}
+            onClick={() => {
+              setError(null);
+              apiDone.current = false;
+              callApi();
+            }}
             className="cursor-pointer rounded-full bg-gradient-to-r from-primary-deep to-primary px-6 py-3 text-sm font-medium text-white transition hover:scale-105"
           >
             Try Again

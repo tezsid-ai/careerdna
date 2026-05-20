@@ -1,52 +1,62 @@
 import type { ReadingPayload } from "@/types/reading";
 
-const LABELS = [
-  "Social Energy",
-  "Content Interest",
-  "Success Definition",
-  "Energy Drain",
-  "Natural Role",
-  "Unconstrained Desire",
-  "Risk Orientation",
-];
-
 export function buildPrompt(p: ReadingPayload): string {
-  const qBlock = Object.entries(p.answerTexts)
-    .map(([k, v], i) => `Q${i + 1} ${LABELS[i] ?? ""}: ${v}`)
-    .join("\n");
+  return `You are CareerDNA — an AI career prediction and guidance system. You turn structured psychological signals into a career-focused report. Write in simple, clear Indian-English. Keep sentences short and easy to scan. Avoid poetic or mystical language.
 
-  const traitBlock = Object.entries(p.traitScores)
-    .map(([k, v]) => `${k}: ${v}`)
-    .join(", ");
+Use ONLY the structured profile and mapping below. Do NOT mention raw scores or internal labels. Do NOT invent new sections.
 
-  const contradictionBlock =
-    p.contradictions.length > 0 ? p.contradictions.join(", ") : "None detected";
-
-  return `You are CareerDNA — an AI career prediction and guidance system. You combine behavioral signals with subtle astrology and numerology to personalize insights, but career guidance is the main focus. Write in simple, clean, modern Indian-English. Avoid mystical, poetic, or overly intellectual language. Keep sentences short and easy to scan.
-
-Based on the following person's complete profile, generate their career reading as a JSON object matching the exact structure specified below.
-
-PERSON'S PROFILE:
+PERSON PROFILE:
 Name: ${p.name}
 Date of Birth: ${p.dob}
 Birth City: ${p.birthCity}
 Birth Time: ${p.birthTime}
-Life Path Number: ${p.lifePathNumber}
 
-BEHAVIORAL ANSWERS:
-${qBlock}
-
-TRAIT SCORES (internal — use to inform writing, never mention scores explicitly):
-${traitBlock}
-
-CONTRADICTIONS DETECTED:
-${contradictionBlock}
-
-ASTROLOGY CONTEXT:
+ASTROLOGY CONTEXT (supporting only):
 Sun Sign: ${p.sunSign}
+Moon Sign: ${p.moonSign}
+Ascendant: ${p.ascendant}
 Dominant Element: ${p.dominantElement}
-Life Path Number: ${p.lifePathNumber}
-Soul Urge: ${p.soulUrge}
+Career Indicator: ${p.careerIndicator}
+Signals: ${p.astrologySignals.join(", ")}
+
+NUMEROLOGY CONTEXT (supporting only):
+Life Path: ${p.lifePathNumber}
+Destiny: ${p.destinyNumber}
+Soul Urge: ${p.soulUrgeNumber}
+Signals: ${p.numerologySignals.join(", ")}
+
+STRUCTURED PROFILE (source of truth):
+Dominant Pattern: ${p.profile.dominantPattern}
+Trait Levels: ${Object.entries(p.profile.traitLevels)
+    .map(([k, v]) => `${k}: ${v}`)
+    .join(", ")}
+Strengths: ${p.profile.strengths.join(" | ")}
+Risks: ${p.profile.risks.join(" | ")}
+Motivators: ${p.profile.motivators.join(" | ")}
+Contradictions: ${p.profile.contradictions.length ? p.profile.contradictions.join(", ") : "none"}
+
+FIXED OUTPUT VALUES — use exactly as given:
+Top Career Match Title: ${p.careerMapping.topMatch.title}
+Top Career Match Percent: ${p.careerMapping.topMatch.matchPercent}
+Top Career Match Notes: ${p.careerMapping.topMatch.reasonNotes.join(" | ")}
+Top Career Match Signal Hint: ${p.careerMapping.topMatch.supportingSignal}
+
+Career Clusters:
+${p.careerMapping.clusters
+  .map(
+    (c, i) =>
+      `${i + 1}) ${c.name} — ${c.matchPercent}% — Roles: ${c.exampleRoles.join(", ")} — Notes: ${c.reasonNotes.join(" | ")}`,
+  )
+  .join("\n")}
+
+Work Environment (use exactly as lists):
+Thrives: ${p.careerMapping.workEnvironment.thrives.join(" | ")}
+Drains: ${p.careerMapping.workEnvironment.drains.join(" | ")}
+
+Action Plan (use exactly 3 steps, keep meaning):
+1) ${p.careerMapping.actionPlan.steps[0]}
+2) ${p.careerMapping.actionPlan.steps[1]}
+3) ${p.careerMapping.actionPlan.steps[2]}
 
 REQUIRED JSON OUTPUT — return ONLY this JSON object, no markdown, no explanation:
 {
@@ -55,16 +65,16 @@ REQUIRED JSON OUTPUT — return ONLY this JSON object, no markdown, no explanati
     "tagline": "string 1 short sentence, simple and career-focused"
   },
   "topCareerMatch": {
-    "title": "string 2-5 words",
-    "matchPercent": 92,
-    "reason": "string 1-2 sentences, simple and career-focused",
-    "supportingSignal": "string 1 short line that subtly references life path or sun sign/element"
+    "title": "${p.careerMapping.topMatch.title}",
+    "matchPercent": ${p.careerMapping.topMatch.matchPercent},
+    "reason": "string 1-2 sentences using the notes",
+    "supportingSignal": "string 1 short line using the signal hint"
   },
   "careerClusters": [
     {
       "name": "string",
       "matchPercent": 88,
-      "reason": "string 1-2 sentences, simple and practical",
+      "reason": "string 1-2 sentences using the notes",
       "exampleRoles": ["string","string","string"]
     }
   ],
@@ -77,10 +87,9 @@ REQUIRED JSON OUTPUT — return ONLY this JSON object, no markdown, no explanati
 
 TONE RULES:
 - Simple, clean, and emotionally relatable for Indian users.
-- Avoid corporate psychology jargon, Western personality terms, and poetic language.
+- Avoid corporate jargon, Western personality labels, and poetic language.
 - Keep it practical, believable, and career-focused.
-- Prefer India-relevant, modern roles and environments.
 - Subtly integrate astrology/numerology as a supporting signal only.
-- Reference their answers so it feels personal.
+- Do not add new sections or extra keys.
 - Return ONLY the JSON.`;
 }

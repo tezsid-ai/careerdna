@@ -1,8 +1,21 @@
-import { QUESTIONS } from "@/utils/questions";
 import { calculateLifePath } from "@/components/reading/LifePathCalculator";
-import { getSunSign, getDominantElement, getSoulUrgeNumber } from "@/utils/astrologyUtils";
+import {
+  getSunSign,
+  getDominantElement,
+  getMoonSign,
+  getAscendant,
+  getCareerIndicator,
+  getPlanetaryTendencies,
+} from "@/utils/astrologyUtils";
+import {
+  getDestinyNumber,
+  getSoulUrgeNumber,
+  getNumerologySignals,
+} from "@/utils/numerologyUtils";
 import type { TraitScores } from "@/utils/traitScoring";
 import type { ReadingPayload } from "@/types/reading";
+import { buildStructuredProfile } from "@/utils/profileEngine";
+import { buildCareerMapping } from "@/utils/careerMapping";
 
 interface BirthData {
   name: string;
@@ -13,30 +26,52 @@ interface BirthData {
 
 export function buildReadingPayload(
   birth: BirthData,
-  answers: Record<string, string>,
   traitScores: TraitScores,
   contradictions: string[],
 ): ReadingPayload {
-  const answerTexts: Record<string, string> = {};
-  for (const [key, val] of Object.entries(answers)) {
-    const qIdx = parseInt(key.replace("q", ""), 10);
-    const q = QUESTIONS[qIdx];
-    const opt = q?.options.find((o) => o.key === val);
-    answerTexts[key] = opt?.text ?? val;
-  }
+  const sunSign = getSunSign(birth.dob);
+  const moonSign = getMoonSign(birth.dob, birth.birthTime, birth.birthCity);
+  const ascendant = getAscendant(birth.dob, birth.birthTime, birth.birthCity);
+  const dominantElement = getDominantElement(sunSign);
+  const careerIndicator = getCareerIndicator(ascendant);
+  const lifePathNumber = calculateLifePath(birth.dob);
+  const destinyNumber = getDestinyNumber(birth.name);
+  const soulUrgeNumber = getSoulUrgeNumber(birth.name);
+  const numerologySignals = getNumerologySignals(
+    lifePathNumber,
+    destinyNumber,
+    soulUrgeNumber,
+  );
+  const astrologySignals = [
+    `${sunSign} sun with ${dominantElement.toLowerCase()} energy`,
+    `${moonSign} moon influence`,
+    `${ascendant} rising focus`,
+    ...getPlanetaryTendencies(sunSign, moonSign, ascendant),
+  ].slice(0, 4);
+  const profile = buildStructuredProfile(
+    traitScores,
+    contradictions,
+    numerologySignals,
+    astrologySignals,
+  );
+  const careerMapping = buildCareerMapping(profile);
 
   return {
     name: birth.name,
     dob: birth.dob,
     birthCity: birth.birthCity,
     birthTime: birth.birthTime || "Not provided",
-    lifePathNumber: calculateLifePath(birth.dob),
-    sunSign: getSunSign(birth.dob),
-    dominantElement: getDominantElement(getSunSign(birth.dob)),
-    soulUrge: getSoulUrgeNumber(birth.name),
-    answers,
-    answerTexts,
-    traitScores,
-    contradictions,
+    sunSign,
+    moonSign,
+    ascendant,
+    dominantElement,
+    careerIndicator,
+    lifePathNumber,
+    destinyNumber,
+    soulUrgeNumber,
+    numerologySignals,
+    astrologySignals,
+    profile,
+    careerMapping,
   };
 }
