@@ -3,17 +3,17 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 w-full"
+      className="sticky top-0 z-50 w-full"
       role="navigation"
       aria-label="Main navigation"
     >
       <div
-        className="border-b border-gray-200/40 bg-background/70 backdrop-blur-lg"
+        className="border-b border-gray-200/40 bg-background"
         style={{
           boxShadow: "0 1px 8px rgba(79, 59, 139, 0.04)",
         }}
       >
-        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:h-16 sm:px-6">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
           {/* Left — Brand */}
           <Link
             href="/"

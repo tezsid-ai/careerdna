@@ -36,6 +36,9 @@ export default function DisclaimerPage() {
         Disclaimer
       </h1>
       <div className="mt-1 h-0.5 w-12 rounded-full bg-gradient-to-r from-primary to-gold" />
+      <p className="mt-2 text-sm font-light text-muted sm:text-base">
+        Last updated: 20-05-2026
+      </p>
 
       {/* Content */}
       <div className="mt-8 flex flex-col gap-6 text-sm font-light leading-relaxed text-muted sm:text-base">
@@ -45,9 +48,10 @@ export default function DisclaimerPage() {
           </h2>
           <p>
             CareerDNA is an AI-powered career guidance platform that generates
-            personalized career insights based on birth-related data, personality
-            assessments, and algorithmic analysis. The insights provided are
-            intended for informational and self-discovery purposes only.
+            personalized career insights based on birth-related data,
+            personality assessments, and algorithmic analysis. The insights
+            provided are intended for informational and self-discovery purposes
+            only.
           </p>
         </section>
 
@@ -59,8 +63,8 @@ export default function DisclaimerPage() {
             The career predictions, personality analyses, and recommendations
             provided by CareerDNA do not constitute professional career
             counseling, psychological evaluation, or financial advice. We
-            recommend consulting qualified professionals for career, educational,
-            or financial decisions.
+            recommend consulting qualified professionals for career,
+            educational, or financial decisions.
           </p>
         </section>
 
@@ -70,9 +74,9 @@ export default function DisclaimerPage() {
           </h2>
           <p>
             While our AI models strive for meaningful insights, results are
-            generated algorithmically and may not fully capture the complexity of
-            individual circumstances. CareerDNA does not guarantee the accuracy,
-            completeness, or applicability of any results.
+            generated algorithmically and may not fully capture the complexity
+            of individual circumstances. CareerDNA does not guarantee the
+            accuracy, completeness, or applicability of any results.
           </p>
         </section>
 
@@ -93,14 +97,28 @@ export default function DisclaimerPage() {
             Changes to This Disclaimer
           </h2>
           <p>
-            We reserve the right to update this disclaimer at any time. Continued
-            use of CareerDNA after changes constitutes acceptance of the revised
-            terms.
+            We reserve the right to update this disclaimer at any time.
+            Continued use of CareerDNA after changes constitutes acceptance of
+            the revised terms.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="mb-2 text-base font-semibold text-foreground sm:text-lg">
+            Contact
+          </h2>
+          <p>
+            For questions, contact:{""}
+            <a
+              href="mailto:info@tezsid.com"
+              className="font-medium text-primary transition-colors hover:text-primary-deep"
+            >
+              {" "}
+              info@tezsid.com
+            </a>
           </p>
         </section>
       </div>
-
-      
     </main>
   );
 }

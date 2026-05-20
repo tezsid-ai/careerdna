@@ -5,7 +5,7 @@ import type { FullReadingData } from "@/app/reading/page";
 import type { CareerReport } from "@/types/reading";
 import { buildReadingPayload } from "@/utils/payloadBuilder";
 import { generateCareerReading } from "@/utils/geminiClient";
-import GenerationAnimation from "./GenerationAnimation";
+// import GenerationAnimation from "./GenerationAnimation";
 import GenerationTextSequence from "./GenerationTextSequence";
 
 interface Props {
@@ -70,7 +70,7 @@ export default function GenerationStep({ readingData, onComplete }: Props) {
 
   return (
     <section className="flex min-h-dvh flex-col items-center justify-center px-6 py-20">
-      <GenerationAnimation />
+      {/* <GenerationAnimation /> */}
       {error ? (
         <div className="flex flex-col items-center gap-4 text-center">
           <p className="text-sm text-red-400">{error}</p>

@@ -36,6 +36,9 @@ export default function PrivacyPage() {
         Privacy Policy
       </h1>
       <div className="mt-1 h-0.5 w-12 rounded-full bg-gradient-to-r from-primary to-gold" />
+      <p className="mt-2 text-sm font-light text-muted sm:text-base">
+        Last updated: 20-05-2026
+      </p>
 
       {/* Content */}
       <div className="mt-8 flex flex-col gap-6 text-sm font-light leading-relaxed text-muted sm:text-base">
@@ -102,13 +105,27 @@ export default function PrivacyPage() {
             Changes to This Policy
           </h2>
           <p>
-            We may update this privacy policy from time to time. Any changes will
-            be reflected on this page with an updated effective date.
+            We may update this privacy policy from time to time. Any changes
+            will be reflected on this page with an updated effective date.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="mb-2 text-base font-semibold text-foreground sm:text-lg">
+            Contact
+          </h2>
+          <p>
+            For questions, contact:{""}
+            <a
+              href="mailto:info@tezsid.com"
+              className="font-medium text-primary transition-colors hover:text-primary-deep"
+            >
+              {" "}
+              info@tezsid.com
+            </a>
           </p>
         </section>
       </div>
-
-      
     </main>
   );
 }

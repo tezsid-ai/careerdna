@@ -53,6 +53,7 @@ export default function ReadingPage() {
             setData={(d) => setData((p) => ({ ...p, ...d }))}
             onNext={next}
             onBack={() => goToStep(1)}
+            showProgress={step !== 2}
           />
         )}
         {step === 3 && (

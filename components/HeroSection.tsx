@@ -6,7 +6,8 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-background px-6 py-20"
+      className="relative flex min-h-[calc(100vh-64px)] items-center justify-center overflow-hidden px-6 py-16 md:py-24"
+      // style={{ backgroundColor: "#F0EEF8" }}
     >
       {/* Animated background layer */}
       <HeroBackground />

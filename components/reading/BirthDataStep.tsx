@@ -8,6 +8,7 @@ interface BirthDataStepProps {
   setData: (data: ReadingData) => void;
   onNext: () => void;
   onBack?: () => void;
+  showProgress?: boolean;
 }
 
 export default function BirthDataStep({
@@ -15,11 +16,19 @@ export default function BirthDataStep({
   setData,
   onNext,
   onBack,
+  showProgress = true,
 }: BirthDataStepProps) {
+  const currentStep = 1;
   return (
     <section className="flex min-h-dvh flex-col items-center justify-center px-4 sm:px-6 py-6 sm:py-12">
       <div className="w-full max-w-md">
-        <StepProgressBar currentStep={1} totalSteps={2} label="Step 1 — Birth Details" />
+        {showProgress && (
+          <StepProgressBar
+            currentStep={currentStep}
+            totalSteps={2}
+            label="Step 1 — Birth Details"
+          />
+        )}
 
         {/* Back button */}
         {onBack && (
