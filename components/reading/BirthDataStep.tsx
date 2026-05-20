@@ -1,7 +1,7 @@
-import type { ReadingData } from "./BirthDataForm";
-import StepProgressBar from "./StepProgressBar";
-import BirthDataForm from "./BirthDataForm";
 import BackButton from "./BackButton";
+import type { ReadingData } from "./BirthDataForm";
+import BirthDataForm from "./BirthDataForm";
+import StepProgressBar from "./StepProgressBar";
 
 interface BirthDataStepProps {
   data: ReadingData;
@@ -22,13 +22,13 @@ export default function BirthDataStep({
   return (
     <section className="flex min-h-dvh flex-col items-center justify-center px-4 sm:px-6 py-6 sm:py-12">
       <div className="w-full max-w-md">
-        {showProgress && (
+        {/* {showProgress && (
           <StepProgressBar
             currentStep={currentStep}
-            totalSteps={2}
-            label="Step 1 — Birth Details"
+            totalSteps={1}
+            label="Birth Details"
           />
-        )}
+        )} */}
 
         {/* Back button */}
         {onBack && (

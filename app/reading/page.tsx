@@ -1,23 +1,15 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
 import HeroBackground from "@/components/HeroBackground";
-import WelcomeStep from "@/components/reading/WelcomeStep";
+import type { ReadingData } from "@/components/reading/BirthDataForm";
 import BirthDataStep from "@/components/reading/BirthDataStep";
-import QuestionStep from "@/components/reading/QuestionStep";
 import GenerationStep from "@/components/reading/GenerationStep";
 import ResultsStep from "@/components/reading/ResultsStep";
-import type { ReadingData } from "@/components/reading/BirthDataForm";
-import type { TraitScores, Answers } from "@/utils/traitScoring";
+import WelcomeStep from "@/components/reading/WelcomeStep";
 import type { CareerReport } from "@/types/reading";
 
-export interface FullReadingData extends ReadingData {
-  answers?: Answers;
-  traitScores?: TraitScores;
-  contradictions?: string[];
-}
-
-const INITIAL: FullReadingData = {
+const INITIAL: ReadingData = {
   name: "",
   dob: "",
   birthCity: "",
@@ -26,20 +18,15 @@ const INITIAL: FullReadingData = {
 
 export default function ReadingPage() {
   const [step, setStep] = useState(1);
-  const [data, setData] = useState<FullReadingData>(INITIAL);
+  const [data, setData] = useState<ReadingData>(INITIAL);
   const [report, setReport] = useState<CareerReport | null>(null);
 
   const next = () => setStep((s) => s + 1);
   const goToStep = useCallback((s: number) => setStep(s), []);
 
-  const onQuestionsComplete = (a: Answers, t: TraitScores, c: string[]) => {
-    setData((p) => ({ ...p, answers: a, traitScores: t, contradictions: c }));
-    setStep(4);
-  };
-
   const onReportReady = (r: CareerReport) => {
     setReport(r);
-    setStep(5);
+    setStep(4);
   };
 
   return (
@@ -53,20 +40,14 @@ export default function ReadingPage() {
             setData={(d) => setData((p) => ({ ...p, ...d }))}
             onNext={next}
             onBack={() => goToStep(1)}
-            showProgress={step !== 2}
+            showProgress={true}
           />
         )}
         {step === 3 && (
-          <QuestionStep
-            onComplete={onQuestionsComplete}
-            onBack={() => goToStep(2)}
-          />
-        )}
-        {step === 4 && (
           <GenerationStep readingData={data} onComplete={onReportReady} />
         )}
-        {step === 5 && report && (
-          <ResultsStep report={report} onBack={() => goToStep(3)} />
+        {step === 4 && report && (
+          <ResultsStep report={report} onBack={() => goToStep(2)} />
         )}
       </div>
     </div>

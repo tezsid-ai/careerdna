@@ -3,7 +3,10 @@ interface MicroInsightProps {
   lifePathNumber: number;
 }
 
-export default function MicroInsight({ insight, lifePathNumber }: MicroInsightProps) {
+export default function MicroInsight({
+  insight,
+  lifePathNumber,
+}: MicroInsightProps) {
   return (
     <div
       className="mt-3 rounded-2xl border-l-4 border-primary bg-lavender/60 px-4 py-3"

@@ -1,16 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { FullReadingData } from "@/app/reading/page";
+import type { ReadingData } from "@/components/reading/BirthDataForm";
 import type { CareerReport } from "@/types/reading";
-import { buildReadingPayload } from "@/utils/payloadBuilder";
 import { generateCareerReading } from "@/utils/geminiClient";
-import { createEmptyTraitScores } from "@/utils/traitScoring";
-// import GenerationAnimation from "./GenerationAnimation";
+import { buildReadingPayload } from "@/utils/payloadBuilder";
 import GenerationTextSequence from "./GenerationTextSequence";
 
 interface Props {
-  readingData: FullReadingData;
+  readingData: ReadingData;
   onComplete: (report: CareerReport) => void;
 }
 
@@ -32,11 +30,7 @@ export default function GenerationStep({ readingData, onComplete }: Props) {
   const callApi = async () => {
     try {
       setError(null);
-      const payload = buildReadingPayload(
-        readingData,
-        readingData.traitScores ?? createEmptyTraitScores(),
-        readingData.contradictions ?? [],
-      );
+      const payload = buildReadingPayload(readingData);
       const report = await generateCareerReading(payload);
       reportRef.current = report;
       apiDone.current = true;
@@ -74,7 +68,6 @@ export default function GenerationStep({ readingData, onComplete }: Props) {
 
   return (
     <section className="flex min-h-dvh flex-col items-center justify-center px-6 py-20">
-      {/* <GenerationAnimation /> */}
       {error ? (
         <div className="flex flex-col items-center gap-4 text-center">
           <p className="text-sm text-red-400">{error}</p>

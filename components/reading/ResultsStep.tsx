@@ -1,10 +1,9 @@
-import type { CareerReport } from "@/types/reading";
-import ArchetypeSection from "@/components/results/ArchetypeSection";
-import TopCareerMatchSection from "@/components/results/TopCareerMatchSection";
-import CareerClustersSection from "@/components/results/CareerClustersSection";
-import WorkEnvironmentSection from "@/components/results/WorkEnvironmentSection";
-import ActionPlanSection from "@/components/results/ActionPlanSection";
 import BackButton from "@/components/reading/BackButton";
+import BestIndustriesSection from "@/components/results/BestIndustriesSection";
+import CareerPersonalitySection from "@/components/results/CareerPersonalitySection";
+import NaturalStrengthsSection from "@/components/results/NaturalStrengthsSection";
+import TopCareerMatchesSection from "@/components/results/TopCareerMatchesSection";
+import type { CareerReport } from "@/types/reading";
 
 export default function ResultsStep({
   report,
@@ -18,11 +17,10 @@ export default function ResultsStep({
       <div className="mt-26 flex items-center justify-start">
         <BackButton onClick={onBack} label="Back" />
       </div>
-      <ArchetypeSection data={report.archetype} />
-      <TopCareerMatchSection data={report.topCareerMatch} />
-      <CareerClustersSection data={report.careerClusters} />
-      <WorkEnvironmentSection data={report.workEnvironment} />
-      <ActionPlanSection data={report.actionPlan} />
+      <CareerPersonalitySection data={report.careerPersonality} />
+      <TopCareerMatchesSection data={report.topCareerMatches} />
+      <BestIndustriesSection data={report.bestIndustries} />
+      <NaturalStrengthsSection data={report.naturalStrengths} />
     </div>
   );
 }

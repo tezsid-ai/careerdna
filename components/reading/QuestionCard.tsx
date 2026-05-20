@@ -1,6 +1,6 @@
 import type { Question } from "@/utils/questions";
-import QuestionDivider from "./QuestionDivider";
 import OptionGrid from "./OptionGrid";
+import QuestionDivider from "./QuestionDivider";
 
 interface QuestionCardProps {
   question: Question;
@@ -15,7 +15,8 @@ export default function QuestionCard({
   onSelect,
   animClass,
 }: QuestionCardProps) {
-  const containerWidth = question.wide || question.finalPair ? "max-w-2xl" : "max-w-lg";
+  const containerWidth =
+    question.wide || question.finalPair ? "max-w-2xl" : "max-w-lg";
 
   return (
     <div className={`mx-auto w-full ${containerWidth} px-6 ${animClass}`}>

@@ -3,7 +3,10 @@ interface ContinueButtonProps {
   onClick: () => void;
 }
 
-export default function ContinueButton({ isValid, onClick }: ContinueButtonProps) {
+export default function ContinueButton({
+  isValid,
+  onClick,
+}: ContinueButtonProps) {
   return (
     <button
       onClick={onClick}

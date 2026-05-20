@@ -15,7 +15,10 @@ export const QUESTIONS = [
     text: "You're at a college fest or joining a new workplace for the first time. What do you naturally do?",
     options: [
       { key: "A", text: "I start talking to people around me pretty easily" },
-      { key: "B", text: "I stick close to the one or two people I already know" },
+      {
+        key: "B",
+        text: "I stick close to the one or two people I already know",
+      },
       { key: "C", text: "I quietly observe everything and warm up slowly" },
       { key: "D", text: "Completely depends on my mood that day" },
     ],
@@ -40,14 +43,20 @@ export const QUESTIONS = [
       { key: "C", text: "Having complete freedom over my time and choices" },
       { key: "D", text: "Doing work that feels truly meaningful" },
       { key: "E", text: "Becoming famous or respected by a large audience" },
-      { key: "F", text: "Building something that lasts — a company, a legacy, a body of work" },
+      {
+        key: "F",
+        text: "Building something that lasts — a company, a legacy, a body of work",
+      },
     ],
   },
   {
     text: "What drains your energy the fastest at work or in life?",
     options: [
       { key: "A", text: "Too many rules and processes I didn't create" },
-      { key: "B", text: "Too much talking, impressing people, and being 'on' all the time" },
+      {
+        key: "B",
+        text: "Too much talking, impressing people, and being 'on' all the time",
+      },
       { key: "C", text: "Doing the same things repeatedly with no variety" },
       { key: "D", text: "Constant uncertainty and no clear direction" },
       { key: "E", text: "Being controlled or micromanaged by someone else" },
@@ -59,7 +68,10 @@ export const QUESTIONS = [
     options: [
       { key: "A", text: "I naturally end up leading or directing the group" },
       { key: "B", text: "I quietly handle the most important work" },
-      { key: "C", text: "I organize, plan, and make sure everything runs properly" },
+      {
+        key: "C",
+        text: "I organize, plan, and make sure everything runs properly",
+      },
       { key: "D", text: "I come up with most of the ideas and concepts" },
       { key: "E", text: "I usually step back and let others take the lead" },
     ],
@@ -67,7 +79,10 @@ export const QUESTIONS = [
   {
     text: "Even when nobody forces you, what kind of activities do you naturally keep coming back to?",
     options: [
-      { key: "A", text: "Building something — a business, a project, a system" },
+      {
+        key: "A",
+        text: "Building something — a business, a project, a system",
+      },
       { key: "B", text: "Learning and understanding things deeply" },
       { key: "C", text: "Creating — content, art, music, writing, design" },
       { key: "D", text: "Exploring — travel, new experiences, meeting people" },
@@ -80,7 +95,10 @@ export const QUESTIONS = [
     options: [
       { key: "A", text: "I stay consistent and keep improving it steadily" },
       { key: "B", text: "I lose interest and move on to something new" },
-      { key: "C", text: "Depends — I stay if I see results, otherwise I drop it" },
+      {
+        key: "C",
+        text: "Depends — I stay if I see results, otherwise I drop it",
+      },
       { key: "D", text: "I overthink too much and delay actually doing it" },
     ],
   },

@@ -19,59 +19,116 @@ body {
 
 /* Sacred geometry rotation — slow, meditative */
 @keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Gentle pulse for constellation dots */
 @keyframes pulse-soft {
-  0%, 100% { opacity: 0.08; transform: scale(1); }
-  50% { opacity: 0.15; transform: scale(1.05); }
+  0%,
+  100% {
+    opacity: 0.08;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.15;
+    transform: scale(1.05);
+  }
 }
 
 /* Subtle float for mandala elements */
 @keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-12px) rotate(3deg); }
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(3deg);
+  }
 }
 
 /* Badge shimmer effect */
 @keyframes shimmer {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 /* CTA button glow pulse */
 @keyframes glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(79, 59, 139, 0.3); }
-  50% { box-shadow: 0 0 35px rgba(79, 59, 139, 0.5), 0 0 60px rgba(201, 168, 76, 0.2); }
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(79, 59, 139, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 35px rgba(79, 59, 139, 0.5),
+      0 0 60px rgba(201, 168, 76, 0.2);
+  }
 }
 
 /* Sequential text fade-in for reading steps */
 @keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Micro-insight card slide-in */
 @keyframes slide-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Question flow — enter */
 @keyframes q-enter {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Question flow — exit */
 @keyframes q-exit {
-  from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform: translateY(-10px); }
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 }
 
-.anim-enter { animation: q-enter 0.4s ease-out both; }
-.anim-exit  { animation: q-exit 0.3s ease-in both; }
-.anim-hidden { opacity: 0; }
-
+.anim-enter {
+  animation: q-enter 0.4s ease-out both;
+}
+.anim-exit {
+  animation: q-exit 0.3s ease-in both;
+}
+.anim-hidden {
+  opacity: 0;
+}

@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 
-export function useInView(threshold = 0.15): [React.RefObject<HTMLDivElement | null>, boolean] {
+export function useInView(
+  threshold = 0.15,
+): [React.RefObject<HTMLDivElement | null>, boolean] {
   const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
 
@@ -10,7 +12,9 @@ export function useInView(threshold = 0.15): [React.RefObject<HTMLDivElement | n
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
+      },
       { threshold },
     );
     obs.observe(el);

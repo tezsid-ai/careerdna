@@ -1,23 +1,33 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
+import { getMicroInsight, shouldShowInsight } from "@/utils/microInsights";
 import { QUESTIONS } from "@/utils/questions";
-import { shouldShowInsight, getMicroInsight } from "@/utils/microInsights";
-import { calculateTraitScores, detectContradictions } from "@/utils/traitScoring";
 import type { Answers } from "@/utils/traitScoring";
-import StepProgressBar from "./StepProgressBar";
-import QuestionCard from "./QuestionCard";
-import InsightToast from "./InsightToast";
+import {
+  calculateTraitScores,
+  detectContradictions,
+} from "@/utils/traitScoring";
 import BackButton from "./BackButton";
+import InsightToast from "./InsightToast";
+import QuestionCard from "./QuestionCard";
+import StepProgressBar from "./StepProgressBar";
 
 interface QuestionStepProps {
-  onComplete: (answers: Answers, traits: ReturnType<typeof calculateTraitScores>, contradictions: string[]) => void;
+  onComplete: (
+    answers: Answers,
+    traits: ReturnType<typeof calculateTraitScores>,
+    contradictions: string[],
+  ) => void;
   onBack?: () => void;
 }
 
 type Anim = "anim-enter" | "anim-exit" | "anim-hidden";
 
-export default function QuestionStep({ onComplete, onBack }: QuestionStepProps) {
+export default function QuestionStep({
+  onComplete,
+  onBack,
+}: QuestionStepProps) {
   const [qIndex, setQIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [selected, setSelected] = useState<string | null>(null);
@@ -46,14 +56,17 @@ export default function QuestionStep({ onComplete, onBack }: QuestionStepProps) 
     }, 320);
   }, []);
 
-  const triggerToast = useCallback((text: string) => {
-    // Only one toast at a time — if one is visible, skip
-    if (toastMessage) {
-      toastQueueRef.current = text;
-      return;
-    }
-    setToastMessage(text);
-  }, [toastMessage]);
+  const triggerToast = useCallback(
+    (text: string) => {
+      // Only one toast at a time — if one is visible, skip
+      if (toastMessage) {
+        toastQueueRef.current = text;
+        return;
+      }
+      setToastMessage(text);
+    },
+    [toastMessage],
+  );
 
   const handleToastDismiss = useCallback(() => {
     setToastMessage(null);

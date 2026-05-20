@@ -12,7 +12,9 @@ const STATEMENTS = [
 ];
 
 export default function WelcomeStep({ onNext }: WelcomeStepProps) {
-  const delay = (i: number) => ({ animation: `fade-in-up 0.8s ease-out ${i}s both` });
+  const delay = (i: number) => ({
+    animation: `fade-in-up 0.8s ease-out ${i}s both`,
+  });
 
   return (
     <section className="flex min-h-dvh items-center justify-center px-6 py-20">
@@ -29,7 +31,7 @@ export default function WelcomeStep({ onNext }: WelcomeStepProps) {
         <div className="flex flex-col gap-3">
           {/* Intro line */}
           <p className="text-sm font-light text-muted" style={delay(0.4)}>
-            Every person is wired differently.
+            Every person is born with a unique potential.
           </p>
 
           {/* Identity statements */}
@@ -48,10 +50,10 @@ export default function WelcomeStep({ onNext }: WelcomeStepProps) {
           {/* Bridge */}
           <div className="mt-6 flex flex-col gap-2">
             <p className="text-sm font-light text-muted" style={delay(2.2)}>
-              Your birth patterns reveal part of this story.
+              Your birth patterns reveal your natural strengths.
             </p>
             <p className="text-sm font-light text-muted" style={delay(2.5)}>
-              Your personality and decisions reveal the rest.
+              Our AI maps these unique signals to real-world opportunities.
             </p>
           </div>
 
@@ -60,7 +62,7 @@ export default function WelcomeStep({ onNext }: WelcomeStepProps) {
             className="mt-4 text-lg font-semibold text-foreground sm:text-xl"
             style={delay(3)}
           >
-            This reading combines both.
+            Unlock your personalized career blueprint.
           </p>
         </div>
 

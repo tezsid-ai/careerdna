@@ -1,21 +1,18 @@
 import { calculateLifePath } from "@/components/reading/LifePathCalculator";
+import type { ReadingPayload } from "@/types/reading";
 import {
-  getSunSign,
-  getDominantElement,
-  getMoonSign,
   getAscendant,
   getCareerIndicator,
+  getDominantElement,
+  getMoonSign,
   getPlanetaryTendencies,
+  getSunSign,
 } from "@/utils/astrologyUtils";
 import {
   getDestinyNumber,
-  getSoulUrgeNumber,
   getNumerologySignals,
+  getSoulUrgeNumber,
 } from "@/utils/numerologyUtils";
-import type { TraitScores } from "@/utils/traitScoring";
-import type { ReadingPayload } from "@/types/reading";
-import { buildStructuredProfile } from "@/utils/profileEngine";
-import { buildCareerMapping } from "@/utils/careerMapping";
 
 interface BirthData {
   name: string;
@@ -24,11 +21,7 @@ interface BirthData {
   birthTime: string;
 }
 
-export function buildReadingPayload(
-  birth: BirthData,
-  traitScores: TraitScores,
-  contradictions: string[],
-): ReadingPayload {
+export function buildReadingPayload(birth: BirthData): ReadingPayload {
   const sunSign = getSunSign(birth.dob);
   const moonSign = getMoonSign(birth.dob, birth.birthTime, birth.birthCity);
   const ascendant = getAscendant(birth.dob, birth.birthTime, birth.birthCity);
@@ -48,13 +41,6 @@ export function buildReadingPayload(
     `${ascendant} rising focus`,
     ...getPlanetaryTendencies(sunSign, moonSign, ascendant),
   ].slice(0, 4);
-  const profile = buildStructuredProfile(
-    traitScores,
-    contradictions,
-    numerologySignals,
-    astrologySignals,
-  );
-  const careerMapping = buildCareerMapping(profile);
 
   return {
     name: birth.name,
@@ -71,7 +57,5 @@ export function buildReadingPayload(
     soulUrgeNumber,
     numerologySignals,
     astrologySignals,
-    profile,
-    careerMapping,
   };
 }

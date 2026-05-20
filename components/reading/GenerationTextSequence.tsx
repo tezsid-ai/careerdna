@@ -1,6 +1,6 @@
 const LINES = [
   "Reading your birth patterns...",
-  "Mapping your behavioral architecture...",
+  "Aligning planetary coordinates...",
   "Cross-referencing astrology and numerology...",
   "Synthesizing your career profile...",
   "Preparing your personal reading...",
@@ -23,9 +23,7 @@ export default function GenerationTextSequence({ activeIndex }: Props) {
               isVisible ? "opacity-100" : "opacity-0"
             } ${isActive ? "text-gray-800" : "text-gray-400"}`}
           >
-            <span
-              className={`text-gold ${isActive ? "animate-pulse" : ""}`}
-            >
+            <span className={`text-gold ${isActive ? "animate-pulse" : ""}`}>
               ✦
             </span>
             {line}

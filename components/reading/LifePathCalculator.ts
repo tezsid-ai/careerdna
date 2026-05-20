@@ -32,5 +32,7 @@ const INSIGHTS: Record<number, string> = {
 };
 
 export function getLifePathInsight(lifePathNumber: number): string {
-  return INSIGHTS[lifePathNumber] || INSIGHTS[reduceToSingle(lifePathNumber)] || "";
+  return (
+    INSIGHTS[lifePathNumber] || INSIGHTS[reduceToSingle(lifePathNumber)] || ""
+  );
 }

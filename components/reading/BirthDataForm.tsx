@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import FormField from "./FormField";
+import { useCallback, useState } from "react";
 import ContinueButton from "./ContinueButton";
+import FormField from "./FormField";
 
 export interface ReadingData {
   name: string;
@@ -17,7 +17,11 @@ interface BirthDataFormProps {
   onNext: () => void;
 }
 
-export default function BirthDataForm({ data, setData, onNext }: BirthDataFormProps) {
+export default function BirthDataForm({
+  data,
+  setData,
+  onNext,
+}: BirthDataFormProps) {
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [errors, setErrors] = useState<Record<string, string | undefined>>({});
 
@@ -97,8 +101,6 @@ export default function BirthDataForm({ data, setData, onNext }: BirthDataFormPr
           onBlur={() => handleBlur("dob")}
         />
       </FormField>
-
-
 
       <FormField
         label="City where you were born"

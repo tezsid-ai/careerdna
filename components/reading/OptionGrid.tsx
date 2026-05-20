@@ -50,9 +50,19 @@ export default function OptionGrid({
             {/* Selected indicator */}
             {isSelected && (
               <span className="absolute top-1/2 right-4 -translate-y-1/2 text-primary">
-                <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
                   <circle cx="10" cy="10" r="10" />
-                  <path d="M6 10l3 3 5-5" stroke="#fff" strokeWidth="2" fill="none" />
+                  <path
+                    d="M6 10l3 3 5-5"
+                    stroke="#fff"
+                    strokeWidth="2"
+                    fill="none"
+                  />
                 </svg>
               </span>
             )}
